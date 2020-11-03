@@ -1,5 +1,5 @@
 
-# POI Service Update7 Challenge 2 
+# POI Service Update7
 
 ## Overview
 
