@@ -1,7 +1,7 @@
 name: .NET Core
 
 on:
-  pull_request:
+  push:
     branches: 
       - master
     paths: 
@@ -19,3 +19,17 @@ jobs:
       shell: bashx
       run: echo "test"  
 
+    - name: The job has failed
+      uses: stefanstranger/azuredevops-bug-action@1.1
+      if: failure()
+      with:
+        OrganizationName: "brvuong0311"
+        PAT: "PAT"
+        ProjectName: "OpenHackDevOps"
+        AreaPath: "OpenHackDevOps"
+        IterationPath: "Sprint 1"
+        GithubToken: "GithubToken"
+        WorkflowFileName: "dotnet-core.yml"
+      env:
+        PAT: ${{ secrets.PAT}}
+        GithubToken: ${{ secrets.githubtoken}}
