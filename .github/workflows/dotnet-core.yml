@@ -4,6 +4,7 @@ on:
   push:    
     paths: 
       - '/apis/**'
+    branches: [ master ]
       
 jobs:
   build:
