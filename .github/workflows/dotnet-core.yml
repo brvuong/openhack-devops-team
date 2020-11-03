@@ -16,6 +16,6 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Run a multi-line script
-      shell: bash
+      shell: bashx
       run: echo "test"  
 
