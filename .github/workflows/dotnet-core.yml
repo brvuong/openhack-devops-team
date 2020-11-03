@@ -3,7 +3,7 @@ name: .NET Core
 on:
   push:
     paths: 
-      - '**apis/**'
+      - '**apis/poi/**'
       
 jobs:
   build:
