@@ -1,4 +1,4 @@
-name: Javascript APIS 
+name: cd-apis-userprofile
 
 on:
   push:
