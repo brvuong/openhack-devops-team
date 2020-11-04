@@ -1,0 +1,26 @@
+name: .NET Core Deploy APIS 
+
+on:
+  push:
+    branches: 
+      - master
+#    paths: 
+#      - '**apis/**'
+       
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+      - uses: azure/docker-login@v1
+        with:
+          login-server: openhackijm6tyx0acr.azurecr.io
+          username: 'openhackijm6tyx0acr'
+          password: 'lKNW59WWTwWMrTCEfT84xOh0QBUKl+Ik'
+
+      - name: build and push
+        run: |
+          docker build apis/poi/web . -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
