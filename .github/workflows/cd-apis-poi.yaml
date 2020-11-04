@@ -1,4 +1,4 @@
-name: .NET Core Deploy APIS 
+name: cd-apis-poi
 
 on:
   push:
