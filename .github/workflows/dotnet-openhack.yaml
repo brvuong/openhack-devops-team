@@ -6,8 +6,7 @@ on:
       - master
     paths: 
       - '**apis/poi/**'
-      
-      
+       
 jobs:
   build:
 
@@ -16,9 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Run a multi-line script
-      shell: bashx
-      run: echo "test"
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v2.1
+      with: 
+        dotnet-version: 2.1
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build apis/poi/web --configuration Release --no-restore
+    - name: Test
+      run: dotnet test apis/poi/tests/UnitTests/*.csproj --no-restore --verbosity normal  
 
     - name: The job has failed
       uses: stefanstranger/azuredevops-bug-action@1.1
