@@ -26,7 +26,36 @@ jobs:
 #        run: |
 #          docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
 #          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
-          
+    
+      - name: Set Web App ACR authentication
+        uses: Azure/appservice-settings@v1
+        with:
+         app-name: 'openhackijm6tyx0poi'
+         app-settings-json: |
+           [
+               {
+                   "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                   "value": "${{ secrets.ACRPWD }}",
+                   "slotSetting": false
+               },
+               {
+                   "name": "DOCKER_REGISTRY_SERVER_URL",
+                   "value": "https://openhackijm6tyx0acr.azurecr.io",
+                   "slotSetting": false
+               },
+               {
+                   "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                   "value": "${{ secrets.ACRUSER  }}",
+                   "slotSetting": false
+               },
+               {
+                   "name": "WEBSITES_WEB_CONTAINER_NAME",
+                   "value": "devopsoh/api-poi:e02eb32de4efde4a9891eeed1e1624fe6dbbb2bd",
+                   "slotSetting": false
+               }  
+           ]
+
+
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'openhackijm6tyx0poi'
