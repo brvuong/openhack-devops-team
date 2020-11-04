@@ -1,0 +1,9 @@
+- uses: azure/docker-login@v1
+  with:
+    login-server: openhackijm6tyx0acr.azurecr.io
+    username: 'openhackijm6tyx0acr'
+    password: 'lKNW59WWTwWMrTCEfT84xOh0QBUKl+Ik'
+    
+    
+   run: |
+    docker build apis/poi/web . openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:latest
