@@ -1,4 +1,4 @@
-name: .NET Core Deploy APIS 
+name: .NET Core Deploy APIS TRIPS
 
 on:
   push:
@@ -47,7 +47,7 @@ jobs:
             AreaPath: "OpenHackDevOps"
             IterationPath: "OpenHackDevOps\\Sprint 1"
             GithubToken: "GithubToken"
-            WorkflowFileName: "cd-apis-poi.yaml"
+            WorkflowFileName: "cd-apis-trips.yaml"
         env:
             PAT: ${{secrets.PAT}}
             GithubToken: ${{secrets.githubtoken}}
