@@ -34,7 +34,7 @@ jobs:
         
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: 'openhackijm6tyx0poi'
+          app-name: 'openhackijm6tyx0userprofile'
           images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
         
       - name: The job has failed
@@ -47,7 +47,7 @@ jobs:
             AreaPath: "OpenHackDevOps"
             IterationPath: "OpenHackDevOps\\Sprint 1"
             GithubToken: "GithubToken"
-            WorkflowFileName: "cd-apis-poi.yaml"
+            WorkflowFileName: "cd-apis-userprofile.yaml"
         env:
             PAT: ${{secrets.PAT}}
             GithubToken: ${{secrets.githubtoken}}
