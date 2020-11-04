@@ -20,7 +20,7 @@ jobs:
       with: 
         dotnet-version: 2.1
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore apis/poi/web
     - name: Build
       run: dotnet build apis/poi/web --configuration Release --no-restore
     - name: Test
