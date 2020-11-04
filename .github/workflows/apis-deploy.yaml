@@ -14,6 +14,8 @@ jobs:
     
     steps:
     
+      - uses: actions/checkout@v2
+          
       - uses: azure/docker-login@v1
         with:
           login-server: openhackijm6tyx0acr.azurecr.io
@@ -22,7 +24,5 @@ jobs:
 
       - name: build and push
         run: |
-          pwd
-          ls
-          docker build ./apis/poi/web/ -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+          docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
           docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
