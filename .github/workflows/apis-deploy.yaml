@@ -22,6 +22,6 @@ jobs:
 
       - name: build and push
         run: |
-          echo pwd
+          pwd
           docker build apis/poi/web/ -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
           docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
