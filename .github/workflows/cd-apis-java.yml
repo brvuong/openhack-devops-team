@@ -1,24 +1,60 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: Java CD
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    branches: 
+      - master
+    paths: 
+      - '**apis/user-java/**'
+       
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    
+      - uses: actions/checkout@v2
+        
+      - uses: azure/docker-login@v1
+        with:
+          login-server: openhackijm6tyx0acr.azurecr.io
+          username: ${{secrets.ACRUSER}}
+          password: ${{secrets.ACRPWD}}
+
+      - name: build and push
+        run: |
+          docker build apis/user-java -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-user-java:${{ github.sha }}
+          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-user-java:${{ github.sha }}
+    
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'openhackijm6tyx0userjava'
+          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-user-java:${{ github.sha }}'
+        
+      - name: The job has failed
+        uses: stefanstranger/azuredevops-bug-action@1.1
+        if: failure()
+        with:
+            OrganizationName: "brvuong0311"
+            PAT: "PAT"
+            ProjectName: "OpenHackDevOps"
+            AreaPath: "OpenHackDevOps"
+            IterationPath: "OpenHackDevOps\\Sprint 1"
+            GithubToken: "GithubToken"
+            WorkflowFileName: "cd-apis-java.yaml"
+        env:
+            PAT: ${{secrets.PAT}}
+            GithubToken: ${{secrets.githubtoken}}
+      
+      - name: Azure logout
+        run: |
+          az logout
