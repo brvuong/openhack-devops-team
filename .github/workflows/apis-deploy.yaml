@@ -25,5 +25,5 @@ jobs:
           pwd
           cd /home/runner/work/openhack-devops-team/openhack-devops-team/apis/poi/web
           pwd
-          docker build apis/poi/web/ -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+          docker build . -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
           docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
