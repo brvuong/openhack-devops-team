@@ -1,5 +1,5 @@
 
-# POI Service Update1 + PR
+# POI Service Update1
 
 ## Overview
 
