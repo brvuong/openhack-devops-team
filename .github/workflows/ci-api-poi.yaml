@@ -34,7 +34,7 @@ jobs:
           AreaPath: "OpenHackDevOps"
           IterationPath: "OpenHackDevOps\\Sprint 1"
           GithubToken: "GithubToken"
-          WorkflowFileName: "dotnet-core.yml"
+          WorkflowFileName: "ci-api-poi.yaml"
       env:
           PAT: ${{secrets.PAT}}
           GithubToken: ${{secrets.githubtoken}}
