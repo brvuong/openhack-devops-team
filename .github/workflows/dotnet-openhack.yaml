@@ -24,7 +24,7 @@ jobs:
     - name: Build
       run: dotnet build apis/poi/web --configuration Release --no-restore
     - name: Test
-      run: dotnet test apis/poi/tests/UnitTestss --no-restore --verbosity normal  
+      run: dotnet test apis/poi --no-restore --verbosity normal  
 
     - name: The job has failed
       uses: stefanstranger/azuredevops-bug-action@1.1
