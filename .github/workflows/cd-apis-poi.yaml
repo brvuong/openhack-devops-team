@@ -16,17 +16,16 @@ jobs:
     
       - uses: actions/checkout@v2
         
-         
       - uses: azure/docker-login@v1
         with:
           login-server: openhackijm6tyx0acr.azurecr.io
           username: ${{secrets.ACRUSER}}
           password: ${{secrets.ACRPWD}}
 
-#      - name: build and push
-#        run: |
-#          docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
-#          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+      - name: build and push
+        run: |
+          docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
     
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
@@ -36,7 +35,7 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'openhackijm6tyx0poi'
-          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:e02eb32de4efde4a9891eeed1e1624fe6dbbb2bd'
+          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
         
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
@@ -52,4 +51,7 @@ jobs:
         env:
             PAT: ${{secrets.PAT}}
             GithubToken: ${{secrets.githubtoken}}
-    
+      
+      - name: Azure logout
+        run: |
+          az logout
