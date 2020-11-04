@@ -1,4 +1,4 @@
-name: .NET Core Deploy APIS 
+name: Javascript APIS 
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
 
       - name: build and push
         run: |
-          docker build apis/userprofile -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+          docker build apis/userprofile -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}
           docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
     
       - name: 'Login via Azure CLI'
@@ -35,7 +35,7 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'openhackijm6tyx0poi'
-          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
+          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
         
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
