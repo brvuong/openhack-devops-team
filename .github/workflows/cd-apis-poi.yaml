@@ -22,16 +22,16 @@ jobs:
           username: ${{secrets.ACRUSER}}
           password: ${{secrets.ACRPWD}}
 
-      - name: build and push
-        run: |
-          docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
-          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+#      - name: build and push
+#        run: |
+#          docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+#          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
           
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'openhackijm6tyx0poi'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
+          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:e02eb32de4efde4a9891eeed1e1624fe6dbbb2bd'
         
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
