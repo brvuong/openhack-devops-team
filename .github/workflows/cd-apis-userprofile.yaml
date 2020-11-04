@@ -25,7 +25,7 @@ jobs:
       - name: build and push
         run: |
           docker build apis/userprofile -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}
-          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}
     
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
