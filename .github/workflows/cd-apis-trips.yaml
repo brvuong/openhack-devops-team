@@ -1,0 +1,57 @@
+name: .NET Core Deploy APIS 
+
+on:
+  push:
+    branches: 
+      - master
+    paths: 
+      - '**apis/trips/**'
+       
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+      - uses: actions/checkout@v2
+        
+      - uses: azure/docker-login@v1
+        with:
+          login-server: openhackijm6tyx0acr.azurecr.io
+          username: ${{secrets.ACRUSER}}
+          password: ${{secrets.ACRPWD}}
+
+      - name: build and push
+        run: |
+          docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}
+          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}
+    
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'openhackijm6tyx0trips'
+          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-trips:${{ github.sha }}'
+        
+      - name: The job has failed
+        uses: stefanstranger/azuredevops-bug-action@1.1
+        if: failure()
+        with:
+            OrganizationName: "brvuong0311"
+            PAT: "PAT"
+            ProjectName: "OpenHackDevOps"
+            AreaPath: "OpenHackDevOps"
+            IterationPath: "OpenHackDevOps\\Sprint 1"
+            GithubToken: "GithubToken"
+            WorkflowFileName: "cd-apis-poi.yaml"
+        env:
+            PAT: ${{secrets.PAT}}
+            GithubToken: ${{secrets.githubtoken}}
+      
+      - name: Azure logout
+        run: |
+          az logout
