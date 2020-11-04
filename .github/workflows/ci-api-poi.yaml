@@ -1,4 +1,4 @@
-name: .NET Core POI
+name: CI-API-POI
 
 on:
   pull_request:    
