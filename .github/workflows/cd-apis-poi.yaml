@@ -27,6 +27,12 @@ jobs:
           docker build apis/poi/web -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
           docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
           
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'openhackijm6tyx0poi'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}'
+        
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
         if: failure()
