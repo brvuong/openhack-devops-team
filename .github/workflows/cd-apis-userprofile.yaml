@@ -39,11 +39,8 @@ jobs:
           slot-name: 'staging'
       
       - uses: run | 
-          chmod 777 polling.sh
-          if ./polling.sh -i https://openhackijm6tyx0userprofile-staging.azurewebsites.net/api/healthcheck/user 
-            then echo "FOUND"
-            else echo "NOT FOUND"
-          fi
+          chmod 777 polling.ps1
+          pwsh ./polling.ps1 -uri https://openhackijm6tyx0userprofile-staging.azurewebsites.net/api/healthcheck/user 
       
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
