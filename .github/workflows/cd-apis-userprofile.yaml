@@ -46,7 +46,7 @@ jobs:
       - name: Swap
         if: ${{ success() }}
         run: |
-          echo "true"
+          az webapp deployment slot swap  -g openhackijm6tyx0rg -n openhackijm6tyx0userprofile --slot staging --target-slot production
         
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
