@@ -22,29 +22,31 @@ jobs:
           username: ${{secrets.ACRUSER}}
           password: ${{secrets.ACRPWD}}
 
-      - name: build and push
-        run: |
-          docker build apis/userprofile -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}
-          docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}
+#      - name: build and push
+#         run: |
+#           docker build apis/userprofile -t openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}
+#           docker push openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}
     
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-      - uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'openhackijm6tyx0userprofile'
-          images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
-          slot-name: 'staging'
+#      - uses: azure/webapps-deploy@v2
+#         with:
+#           app-name: 'openhackijm6tyx0userprofile'
+#           images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
+#           slot-name: 'staging'
       
-      - name: Poll website
+      - name: PollWebsite
         run: | 
           chmod 777 polling.ps1
           pwsh ./polling.ps1 -uri https://openhackijm6tyx0userprofile-staging.azurewebsites.net/api/healthcheck/user 
       
       - name: Swap
-        if: ${{ }}
+        if: ${{ Boolean(github.action("PollWebsite")) }}
+        run: |
+          echo "true"
         
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
