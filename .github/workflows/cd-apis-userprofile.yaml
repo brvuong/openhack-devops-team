@@ -37,7 +37,15 @@ jobs:
           app-name: 'openhackijm6tyx0userprofile'
           images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
           slot-name: 'staging'
-        
+      
+      - uses: run | 
+          curl -O https://raw.githubusercontent.com/Azure-Samples/openhack-devops-proctor/master/resources/polling.sh
+          chmod 777 polling.sh
+          if ./polling.sh -i https://openhackijm6tyx0userprofile-staging.azurewebsites.net/api/healthcheck/user | grep -q "200"
+            then echo "FOUND"
+            else echo "NOT FOUND"
+          fi
+      
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
         if: failure()
