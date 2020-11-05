@@ -36,6 +36,7 @@ jobs:
         with:
           app-name: 'openhackijm6tyx0userprofile'
           images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
+          slot-name: 'staging'
         
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
