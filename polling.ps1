@@ -44,4 +44,4 @@ while($timeout -le 50) {
   $timeout++
 }
 
-break $false
+exit $false
