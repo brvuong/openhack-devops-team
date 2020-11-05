@@ -43,6 +43,9 @@ jobs:
           chmod 777 polling.ps1
           pwsh ./polling.ps1 -uri https://openhackijm6tyx0userprofile-staging.azurewebsites.net/api/healthcheck/user 
       
+      - name: Swap
+        if: ${{ }}
+        
       - name: The job has failed
         uses: stefanstranger/azuredevops-bug-action@1.1
         if: failure()
