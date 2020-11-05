@@ -44,7 +44,7 @@ jobs:
           pwsh ./polling.ps1 -uri https://openhackijm6tyx0userprofile-staging.azurewebsites.net/api/healthcheck/user 
       
       - name: Swap
-        if: ${{ github.action("PollWebsite") }}
+        if: ${{ github.action.PollWebsite }}
         run: |
           echo "true"
         
