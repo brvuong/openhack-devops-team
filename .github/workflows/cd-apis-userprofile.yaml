@@ -38,7 +38,8 @@ jobs:
           images: 'openhackijm6tyx0acr.azurecr.io/devopsoh/api-userprofile:${{ github.sha }}'
           slot-name: 'staging'
       
-      - uses: run | 
+      - name: Poll website
+        run: | 
           chmod 777 polling.ps1
           pwsh ./polling.ps1 -uri https://openhackijm6tyx0userprofile-staging.azurewebsites.net/api/healthcheck/user 
       
